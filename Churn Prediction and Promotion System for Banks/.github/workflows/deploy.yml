@@ -1,0 +1,42 @@
+name: Deploy to EC2 with Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Add EC2 private key as a temporary file
+      - name: Add private key
+        run: |
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > deploy_key.pem
+          chmod 600 deploy_key.pem
+          cat deploy_key.pem
+
+      # 3. SSH into EC2 and deploy
+      - name: Deploy to EC2
+        run: |
+          ssh -i deploy_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            echo "Connected to EC2!"
+            sudo su
+            # Login to Docker Hub (if needed)
+            docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+            # Pull the latest Docker image
+            docker pull sonakul/group4-deployment:latest
+
+            # Run the new container
+            docker run -d --name my-app -p 8080:80 sonakul/group4-deployment:latest
+          EOF
+
+      # 4. Clean up private key
+      - name: Clean up
+        run: rm -f deploy_key.pem
