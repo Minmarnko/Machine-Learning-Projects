@@ -60,7 +60,7 @@ To predict customer churn and provide intelligent promotional strategies using d
 
 ## 📁 Repository Structure
 
-\`\`\`bash
+'''bash
 ML-Group4/
 ├── app/                  # Streamlit web app
 ├── model/                # Trained models & clustering pipeline
@@ -70,7 +70,7 @@ ML-Group4/
 ├── deploy.yml            # GitHub Actions workflow
 ├── README.md             # Project overview
 └── report/               # Final project report (PDF, figures)
-\`\`\`
+'''
 
 ---
 
