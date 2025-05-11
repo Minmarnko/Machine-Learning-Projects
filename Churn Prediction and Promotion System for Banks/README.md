@@ -76,7 +76,6 @@ ML-Group4/
 
 ## 🔗 Useful Links
 
-- 🧠 **GitHub Repo:** [ML-Group4](https://github.com/Sgkamnuanchai/ML-Group4)
 - 🐳 **DockerHub:** [Group4 Deployment](https://hub.docker.com/repository/docker/sonakul/group4-deployment/)
 - 🌐 **Live Demo:** [Web Application](http://34.209.204.206:8080/)
 
